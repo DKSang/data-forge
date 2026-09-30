@@ -1,83 +1,81 @@
-# Data Forge — bộ skill data engineering
+# Data Forge — Data Engineering Skills
 
-Bộ skill giúp agent cùng người dùng thiết kế, xây dựng và vận hành hệ thống dữ liệu **theo bài toán**, không theo một danh sách công nghệ cố định. Dùng được cho dự án local, on-prem, cloud hoặc hybrid — từ một script nhập dữ liệu đến nền tảng phục vụ nhiều nhóm.
+> **Public source:** [DKSang/data-forge](https://github.com/DKSang/data-forge). Install commands below use this repository; this README does not claim a versioned release or a passing remote CI run.
 
-> **Trạng thái:** source package đã sẵn sàng để publish lên GitHub, nhưng repository chưa được publish. Các lệnh GitHub bên dưới dùng `OWNER` làm placeholder; thay bằng GitHub owner thực tế sau khi repository được tạo công khai. Vì vậy, các lệnh này hiện chưa chạy được.
+Data Forge is a vendor-neutral collection of skills for AI coding agents working with data systems. It helps users design, deliver, and operate systems around the problem—not around a predetermined stack. It supports local, on-premises, cloud, and hybrid projects, from a small ingestion script to a platform serving multiple teams.
 
-## Bắt đầu nhanh
+## Quick Start
 
-### Cài một skill bằng `npx skills`
-
-Sau khi repository được publish, cài riêng skill cần dùng bằng cách thay `OWNER` và tên skill:
+### Install one skill with `npx skills`
 
 ```bash
-npx skills@latest add OWNER/data-forge --skill forge-de-design
+npx skills@latest add DKSang/data-forge --skill forge-de-design
 ```
 
-Lệnh trên chỉ cài `forge-de-design`. Đổi tên sau `--skill` để cài skill khác; dùng lựa chọn của installer để chọn agent/runtime. Có thể chạy lại cho từng peer skill khi cần handoff. Không cần cài cả bộ.
+Replace `forge-de-design` with the name of the skill you want. Repeat for optional peer skills when a workflow spans multiple roles. Use the installer's prompts to select a supported agent or runtime.
 
-### Cài thủ công
+### Install manually from source
 
-Nếu đã có source checkout, bỏ qua bước clone. Sau khi repository được publish, có thể lấy source như sau:
+If you already have a source checkout, skip the clone step. Otherwise, clone the public repository:
 
 ```bash
-git clone https://github.com/OWNER/data-forge.git
+git clone https://github.com/DKSang/data-forge.git
 ```
 
-Sao chép **nguyên thư mục** `skills/<group>/<skill>/` vào thư mục skills trực tiếp mà runtime hỗ trợ. Giữ nguyên `SKILL.md` và toàn bộ `references/` bên trong.
+Copy the **entire selected skill directory**—including `SKILL.md` and its `references/`—into the runtime's skills directory.
 
-Ví dụ với Claude Code:
+For example, with Claude Code:
 
 ```text
 skills/design/forge-de-design/  →  .claude/skills/forge-de-design/
 ```
 
-Mỗi thư mục skill là một đơn vị cài đặt độc lập. Các runtime khác có thể dùng thư mục skills riêng; runtime cần nhận diện định dạng `SKILL.md`. Chỉ clone hoặc tải source repo không tự kích hoạt skill trong repo dự án.
+Each skill folder is a standalone install unit. Other runtimes may use a different skills directory and must support the `SKILL.md` format. Cloning or downloading this repository alone does not activate skills in a project repository.
 
-## Cập nhật và gỡ bỏ
+## Skills
 
-| Cách cài | Cập nhật | Gỡ bỏ |
+| Skill | Group | Use it when |
 | --- | --- | --- |
-| `npx skills` | Chạy `npx skills update` và chọn skill Data Forge cần cập nhật nếu installer hỏi. | Chạy `npx skills remove` và chọn skill Data Forge cần gỡ nếu installer hỏi. |
-| Thủ công | Sao chép thư mục skill mới nhất đè lên thư mục đã cài; giữ nguyên `references/`. | Xóa đúng thư mục skill đã cài. |
+| [forge-de](skills/setup/forge-de/SKILL.md) | setup | Starting or resuming a data initiative and deciding what to do next. |
+| [forge-de-brain](skills/brain/forge-de-brain/SKILL.md) | brain | Retrieving or maintaining confirmed project definitions, contracts, and decisions. |
+| [forge-de-design](skills/design/forge-de-design/SKILL.md) | design | Clarifying requirements, assessing sources, modeling data, and weighing trade-offs before documenting a stage. |
+| [forge-de-deliver](skills/build/forge-de-deliver/SKILL.md) | build | Implementing or testing an explicitly requested change with a clear scope. |
+| [forge-de-operate](skills/operate/forge-de-operate/SKILL.md) | operate | Maintaining data quality and trust, observability, security/privacy, incident readiness, and continual improvement. |
 
-Các lệnh CLI chỉ áp dụng cho skill đã cài và được quản lý bằng `npx skills`. Gỡ skill không tự xóa tài liệu thiết kế hoặc project knowledge trong repo đích; chúng thuộc repo dự án và tuân theo quy ước của repo đó.
+`forge-de` routes work; `forge-de-brain` maintains confirmed project context; `forge-de-design` aligns consequential choices stage by stage; `forge-de-deliver` implements agreed requests; and `forge-de-operate` supports ongoing operations. Each skill works within its own scope. Handoffs to peer skills are optional: install additional peers when you need cross-role workflows.
 
-## Bộ skill
+After installation, invoke a skill by name in a compatible runtime or describe the task and let the agent choose a skill.
 
-| Skill | Nhóm | Dùng khi |
+## Working Principles and Safety
+
+- Start with data users, business decisions, data quality, freshness, and team capabilities. Do not assume cloud, Spark, streaming, or a medallion architecture.
+- Discuss consequential trade-offs before writing a design document. Obtain explicit confirmation for each relevant stage; do not create draft design or tracking files while a decision is unapproved.
+- **Design approval, an implementation request, and authorization for remote or production effects are separate.** Approving a design stage does not authorize cloud-resource changes, write jobs, material costs, or destructive actions.
+- Prefer synthetic data and local tests. Report what was verified and what remains unknown.
+
+See [synthetic examples](examples/scenarios.md). Platform-specific skills can be added after a platform is selected; they do not replace the discussion of goals and trade-offs.
+
+## Update and Uninstall
+
+| Installation method | Update | Uninstall |
 | --- | --- | --- |
-| [forge-de](skills/setup/forge-de/SKILL.md) | setup | Bắt đầu/tiếp tục sáng kiến dữ liệu và định tuyến đến bước phù hợp. |
-| [forge-de-brain](skills/brain/forge-de-brain/SKILL.md) | brain | Truy xuất/lưu định nghĩa, hợp đồng và quyết định dự án đã được xác nhận. |
-| [forge-de-design](skills/design/forge-de-design/SKILL.md) | design | Làm rõ nhu cầu, đánh giá nguồn, mô hình hóa và trade-off trước tài liệu stage. |
-| [forge-de-deliver](skills/build/forge-de-deliver/SKILL.md) | build | Xây, sửa hoặc kiểm thử thay đổi đã được yêu cầu và có phạm vi rõ. |
-| [forge-de-operate](skills/operate/forge-de-operate/SKILL.md) | operate | Duy trì chất lượng/trust, security/privacy, observability, ứng phó và cải tiến. |
+| `npx skills` | `npx skills update forge-de-design` (replace with the installed skill name). | Run `npx skills remove`; follow the CLI's selection prompt if shown. |
+| Manual copy | Replace the installed skill folder with the complete newer folder, including `references/`. | Delete only the installed skill folder. |
 
-`forge-de` định hướng và định tuyến; `forge-de-brain` giữ ngữ cảnh dự án đã xác nhận; `forge-de-design` thống nhất trade-off theo từng chặng; `forge-de-deliver` triển khai yêu cầu build đã rõ; `forge-de-operate` hướng dẫn vận hành. Mỗi skill dùng được độc lập trong phạm vi của nó. Handoff sang skill khác là tùy chọn: cài thêm peer skill khi cần workflow liên vai trò.
+The CLI commands apply only to skills installed and managed by `npx skills`. Removing a skill does not remove design documents or project knowledge in the target repository; those belong to that project and follow its conventions.
 
-Sau khi cài, gọi skill theo tên trong runtime hỗ trợ skills, hoặc mô tả nhu cầu để agent tự chọn skill phù hợp.
+## Development and Evaluation
 
-## Nguyên tắc làm việc và an toàn
+Each skill has `name` and `description` frontmatter, a concise `SKILL.md` entrypoint, and focused guidance in `references/`. [BOOK-COVERAGE.md](BOOK-COVERAGE.md) tracks chapter concepts, Data Forge content approvals, and limits on direct source comparison. It is a coverage plan—not a claim that the full book has been covered.
 
-- Bắt đầu từ người dùng dữ liệu, quyết định kinh doanh, chất lượng, freshness và năng lực đội ngũ. Không mặc định cloud, Spark, streaming hay medallion architecture.
-- Trao đổi các trade-off có ảnh hưởng trước khi ghi tài liệu thiết kế; cần xác nhận rõ cho từng stage liên quan. Chưa thống nhất thì không tạo file thiết kế nháp hay tracking file.
-- **Duyệt thiết kế, yêu cầu triển khai và cho phép tác động remote/production là ba quyền riêng biệt.** Duyệt một stage không tự cho phép sửa cloud resources, chạy job ghi dữ liệu, phát sinh chi phí hay thao tác phá huỷ.
-- Ưu tiên dữ liệu giả và kiểm thử local; nêu rõ điều gì đã kiểm chứng và điều gì chưa.
-
-Ví dụ giả lập nằm trong [examples/scenarios.md](examples/scenarios.md). Có thể kết hợp skill chuyên nền tảng sau khi nền tảng đã được chọn; chúng không thay thế việc làm rõ mục tiêu và trade-off.
-
-## Phát triển và đánh giá
-
-Mỗi skill có frontmatter `name`/`description`, hướng dẫn chính trong `SKILL.md` và tài liệu chuyên sâu trong `references/`. [BOOK-COVERAGE.md](BOOK-COVERAGE.md) theo dõi khái niệm theo chương, trạng thái phê duyệt nội dung Data Forge và giới hạn đối chiếu trực tiếp với sách; đây là coverage plan, không phải tuyên bố đã bao phủ toàn bộ sách.
-
-Chạy kiểm tra cấu trúc tại source checkout:
+Run the structural checks from a source checkout:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-GitHub Actions tại `.github/workflows/check.yml` cấu hình chạy cùng bộ test trên push và pull request sau khi source được đưa lên GitHub. Các prompt eval dùng dữ liệu giả nằm trong `evals/`; workspace, transcript và benchmark sinh cục bộ dưới `.claude/skills/*-workspace/` không thuộc gói phân phối.
+The workflow in `.github/workflows/check.yml` is configured to run the same tests on pushes and pull requests; this describes the workflow configuration, not a verified passing remote run. Synthetic evaluation prompts are in `evals/`. Locally generated workspaces, transcripts, and benchmarks under `.claude/skills/*-workspace/` are excluded from the distributable skill package.
 
-## Giấy phép và nguồn
+## License and Sources
 
-Nội dung Data Forge mà người đóng góp có quyền cấp phép được phát hành theo MIT; xem [LICENSE](LICENSE). Giấy phép không cấp quyền đối với sách hoặc tài liệu bên thứ ba. Repo diễn giải khái niệm bằng ngôn ngữ riêng, không phân phối văn bản, hình hoặc bảng từ *Fundamentals of Data Engineering*.
+Data Forge material is licensed under MIT only to the extent its contributors have the rights to license it; see [LICENSE](LICENSE). This license does not grant rights to the book or other third-party material. The repository contains original explanations of concepts from *Fundamentals of Data Engineering*; it does not distribute the book's text, images, or tables.
