@@ -1,0 +1,16 @@
+---
+name: forge-de
+description: Orient and route a data-engineering initiative across local, on-prem, cloud, or hybrid environments. Use when a user starts or resumes a project, needs the next step, asks to retrieve or maintain approved project knowledge, or raises ongoing operations/security/privacy concerns; route durable facts to forge-de-brain, consequential design to forge-de-design, requested implementation to forge-de-deliver, and ongoing operations to forge-de-operate. Do not default to a vendor or medallion pattern.
+---
+
+# Data engineering entry point
+
+Orient around the business outcome and the data consumer, not a stack. This skill routes work; it does not create project documents or deploy anything merely because an initiative was mentioned.
+
+1. Identify the intended action, people affected, decision/KPI, freshness, and definition of success. If the user already supplied these, summarize instead of interviewing them again.
+2. Inspect relevant project context read-only: existing code, approved decisions, contracts, tests, environment boundaries, and current problems. Distinguish verified facts from assumptions. Do not require a pristine new project.
+3. Locate the **smallest useful slice**. The lifecycle includes generation, storage, ingestion, transformation, and serving, but these overlap and can be entered at any point. Use [route-and-state.md](references/route-and-state.md) to decide what is already agreed and what remains open.
+4. If the user asks to retrieve, reconcile, or persist confirmed project definitions, contracts, decisions, or lessons, invoke `forge-de-brain` when installed; otherwise summarize only accessible approved context and do not persist facts outside the user's explicit scope. Do not promote tentative facts. For unresolved consequential choices, invoke `forge-de-design` when installed; if unavailable, keep open decisions in chat and state the limitation. For an explicit build/change/test request with sufficient agreed context, invoke `forge-de-deliver` when installed; otherwise clarify that implementation support is unavailable and do not imply work was done. For ongoing quality, freshness, observability, security/privacy/governance, incident readiness, or cost concerns, invoke `forge-de-operate` when installed for read-only-first triage and ownership handoff; otherwise give only general guidance and identify the responsible owner for consequential actions. Never try to read a sibling `SKILL.md` that may not be included in a single-skill install, and do not imply that a missing skill or control exists. For a purely factual question, answer directly and call out uncertainty; do not force a project ceremony.
+5. Reply in the user's language. End with the current conclusion, any consequential open decisions, and the **one next decision or action** that would move the work forward. Never treat a technology mention as approval of the whole design.
+
+Scope: local, on-prem, cloud, hybrid, and multi-cloud; small scripts and large platforms alike. If another platform-specific skill applies (e.g., Fabric), use it for platform mechanics **after** the platform has been selected or is an existing constraint; it does not replace this suite's business and trade-off discussion. Security, privacy, ownership, cost, quality, and operational load matter at every stage, not as a final checklist.

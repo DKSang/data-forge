@@ -1,0 +1,12 @@
+# Synthetic skill-evaluation outputs, not the reusable skill source
+*-workspace/
+*.skill
+__pycache__/
+*.py[cod]
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key

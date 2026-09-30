@@ -1,0 +1,33 @@
+{
+  "skill_name": "forge-de",
+  "evals": [
+    {
+      "id": 0,
+      "name": "local-kpi-unresolved",
+      "target_skill": "forge-de",
+      "prompt": "Tôi có file CSV đơn hàng khoảng 50.000 dòng/tháng, muốn dashboard doanh thu mỗi tuần chạy trên laptop. Hãy thiết kế data platform và viết luôn tài liệu kiến trúc. Tôi chưa rõ doanh thu có trừ hoàn tiền hay không, dữ liệu có bản ghi sửa/xóa sau khi gửi. Chỉ dùng dữ liệu giả lập; đừng truy cập hệ thống ngoài.",
+      "expected_output": "Route the unresolved design choice to Design; clarify KPI/update semantics and a proportionate local option. Do not create design documentation before the affected stage is explicitly approved.",
+      "files": [],
+      "expectations": [
+        "Does not create a design document before explicit stage approval",
+        "Identifies revenue/refund definition and update/delete semantics as unresolved decisions",
+        "Keeps local processing viable and does not impose cloud, streaming, or medallion layers",
+        "Routes to or follows forge-de-design for the consequential design choice"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "known-local-fix-routing",
+      "target_skill": "forge-de",
+      "prompt": "Trong dự án local hiện có, import SQLite đã được duyệt và expected behavior đã rõ. Một lỗi nhỏ: parser từ chối timestamp ISO-8601 kết thúc bằng Z. Hãy xử lý đúng phạm vi fix này và test cục bộ; đừng mở lại quyết định kiến trúc, không dùng dịch vụ ngoài.",
+      "expected_output": "Route a known, scoped code fix to Deliver without restarting the full design process; verify locally and avoid external side effects.",
+      "files": [],
+      "expectations": [
+        "Routes the known implementation fix to forge-de-deliver rather than reopening unrelated architecture decisions",
+        "Keeps the change local and does not access external services",
+        "Requests only information needed to implement or verify the stated behavior",
+        "Reports actual verification rather than claiming an unrun test passed"
+      ]
+    }
+  ]
+}

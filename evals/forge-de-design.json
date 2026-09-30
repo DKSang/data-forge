@@ -1,0 +1,33 @@
+{
+  "skill_name": "forge-de-design",
+  "evals": [
+    {
+      "id": 1,
+      "name": "partial-cloud-stage-approval",
+      "target_skill": "forge-de-design",
+      "prompt": "Dự án giả lập Customer Pulse: Tôi xác nhận chặng 1 (mục tiêu): đội CS cần biết số khách hoạt động trong 10 phút, active nghĩa là có ít nhất một sự kiện hợp lệ trong 24 giờ; tôi cho phép ghi tài liệu chặng 1. Chặng 2 chưa chốt: nguồn là Postgres và API SaaS nhưng chưa biết chủ sở hữu API, quyền truy cập, xóa dữ liệu và giới hạn rate. Hãy tiếp tục thiết kế; nếu ghi tài liệu stage 1 thì chỉ ghi vào `out/customer-pulse-stage-1.md`, không tạo file nào cho stage 2+. Chỉ làm trong thư mục output giả lập, không kết nối nguồn thật.",
+      "expected_output": "Document only the approved goal stage; keep source/architecture open, ask about API ownership, permissions, deletion semantics, rate limits, and end-to-end freshness; do not infer streaming or production readiness.",
+      "files": [],
+      "expectations": [
+        "Creates only a stage-1 goal document containing the approved active definition and 10-minute need",
+        "Creates no source, architecture, or later-stage design document without approval",
+        "Asks for API owner/permission, deletion behavior, and rate limits instead of inventing guarantees",
+        "Does not default to streaming or claim production readiness"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "analytics-serving-choice",
+      "target_skill": "forge-de-design",
+      "prompt": "Nhóm phân tích cần dashboard nội bộ cho 100 người; dữ liệu nên mới trong 15 phút và giờ cao điểm có khoảng 80 truy vấn đồng thời. Chưa chọn vendor hay interface. So sánh query trực tiếp trên dataset đã chuẩn bị, federation và export định kỳ; làm rõ freshness so với query latency, access, dependency, chi phí/vận hành và khả năng chuyển đổi. Chỉ tư vấn trong chat, chưa duyệt tài liệu.",
+      "expected_output": "Compare genuinely distinct serving modes and their conditions, risks, cost, operating burden, access, freshness/latency, dependencies, and reversibility; ask for missing evidence and wait for explicit stage approval before writing a design document.",
+      "files": [],
+      "expectations": [
+        "Compares at least two distinct serving interfaces, not only capacity/cache variants",
+        "Distinguishes the 15-minute freshness requirement from query response latency and identifies material workload evidence",
+        "Covers access, source/query-time dependencies, cost or operating burden, owner/support, and reversibility or migration friction",
+        "Creates no stage document and asks for explicit confirmation before documenting the choice"
+      ]
+    }
+  ]
+}

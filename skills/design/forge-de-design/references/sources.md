@@ -1,0 +1,10 @@
+# Intellectual provenance
+
+This suite combines two inputs:
+
+- **User-provided workflow:** start with business goals and consumers; inspect sources; design architecture and models; ingest, clean and transform; establish trusted meaning; assure quality and observability; make data accessible; govern and improve continuously.
+- **Conceptual reference:** Joe Reis and Matt Housley, *Fundamentals of Data Engineering*, first edition, O’Reilly Media, 2022. Chapter 1 covers the discipline, business/technical responsibilities, maturity and role contexts; Chapter 2 presents the lifecycle and cross-cutting undercurrents; Chapters 3–4 discuss architecture and context-driven technology choice; Chapters 5–9 explore source generation, storage, ingestion, modeling/transformation and serving for analytics, ML and operational use; Chapter 10 discusses security and privacy; Chapter 11 offers future-facing hypotheses; Appendices A–B cover serialization/compression and cloud networking.
+
+Use the repository-root `BOOK-COVERAGE.md` in the source checkout as the progress map: it is not included in this single-skill package, and its planned rows are not evidence that a topic has already been authored. Each reference should preserve useful concepts in original language, identify whether an idea is a general principle, the authors’ framework, a dated technical example or a prediction, and be checked against its source before being marked complete. The authors’ maturity and architecture models are perspectives, not universal standards.
+
+These are independently written skill instructions, not a reproduction of the book. Do not distribute the local Markdown transcription, its figures, distinctive tables or substantial verbatim passages in this repository or in generated project documents. Treat the book's cloud-first emphasis and 2022 product landscape as context rather than a constraint: evaluate local, on-prem and hybrid options on their own merits. For current vendor behavior, security controls, legal duties, networking, limits, support and pricing, consult current primary documentation and relevant organizational owners.

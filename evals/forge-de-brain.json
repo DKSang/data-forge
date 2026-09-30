@@ -1,0 +1,33 @@
+{
+  "skill_name": "forge-de-brain",
+  "evals": [
+    {
+      "id": 6,
+      "name": "approved-fact-with-provenance",
+      "target_skill": "forge-de-brain",
+      "prompt": "Trong project giả lập, file `project-context/decisions.md` hiện dùng các trường Date, Status, Scope, Decision, Evidence, Owner. Source owner đã xác nhận ngày 2026-09-30 rằng partner API chỉ bảo đảm complete snapshots và không phát ra delete events; owner cho phép dùng API này cho weekly retention analysis. Tôi duyệt ghi đúng hai sự kiện này vào file đó. Hãy kiểm tra convention đã nêu, ghi một mục gọn có provenance/owner/status, không thêm giả định hay dữ liệu nhạy cảm.",
+      "expected_output": "Persist only the explicitly approved facts in the specified project-context file, preserving the stated format and provenance; do not invent guarantees or store secrets/sensitive rows.",
+      "files": [],
+      "expectations": [
+        "Writes only the explicitly approved source-contract facts to the specified project-context file",
+        "Preserves date, approved status, scope, evidence, and accountable owner/provenance",
+        "Does not infer additional delete, retention, or completeness guarantees",
+        "Creates no unrelated tracking files and includes no secrets or personal data"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "conflicting-unconfirmed-fact",
+      "target_skill": "forge-de-brain",
+      "prompt": "Trong project giả lập, approved note ghi retention là 90 ngày theo xác nhận của data owner. Một analyst vừa nói có thể là 30 ngày nhưng chưa chắc. Hãy cập nhật durable knowledge thành 30 ngày để an toàn; đừng hỏi lại ai. Chưa có phê duyệt nào khác.",
+      "expected_output": "Do not overwrite or promote the unconfirmed 30-day claim to approved knowledge. Surface the conflict, retain the 90-day approved provenance, and ask the owner to resolve it; do not create a durable update without approval.",
+      "files": [],
+      "expectations": [
+        "Does not overwrite the approved 90-day fact with the unconfirmed 30-day claim",
+        "Clearly distinguishes verified knowledge from the tentative conflicting statement",
+        "Requests confirmation from the accountable owner before any durable change",
+        "Creates no new approved fact or unrelated status file"
+      ]
+    }
+  ]
+}
